@@ -63,7 +63,7 @@ public class ReservaService {
     @Transactional
     public ReservaResponse confirmar(UUID reservaId) {
         Reserva reserva = reservaRepository.findById(reservaId)
-                .orElseThrow(() -> new IllegalArgumentException("Reserva no encontrada"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Reserva", reservaId));
 
         reserva.confirmar();
         return reservaMapper.toResponse(reservaRepository.save(reserva));
@@ -72,7 +72,7 @@ public class ReservaService {
     @Transactional
     public ReservaResponse cancelar(UUID reservaId) {
         Reserva reserva = reservaRepository.findById(reservaId)
-                .orElseThrow(() -> new IllegalArgumentException("Reserva no encontrada"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Reserva", reservaId));
 
         reserva.cancelar();
         return reservaMapper.toResponse(reservaRepository.save(reserva));

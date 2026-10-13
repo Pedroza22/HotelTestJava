@@ -3,6 +3,7 @@ package com.hotel.Hotel.controller;
 import com.hotel.Hotel.dto.request.CrearClienteRequest;
 import com.hotel.Hotel.dto.response.ClienteResponse;
 import com.hotel.Hotel.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,7 +23,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteResponse> crear(@RequestBody CrearClienteRequest request,
+    public ResponseEntity<ClienteResponse> crear(@Valid @RequestBody CrearClienteRequest request,
             UriComponentsBuilder uriBuilder) {
         ClienteResponse response = clienteService.crear(request);
         URI uri = uriBuilder.path("/api/clientes/{id}").buildAndExpand(response.id()).toUri();
